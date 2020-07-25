@@ -36,7 +36,7 @@
               <div class="time">
                 <span class="date">
                   <b-icon icon="clock-history"></b-icon>
-                  {{ item.submitdate }} , Hydrabad
+                  {{ item.submitdate }} ,  {{ item.location }}
                 </span>
               </div>
             </div>
@@ -49,7 +49,6 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { EventBus } from "../main";
 export default {
   data() {
     return {
@@ -109,10 +108,10 @@ export default {
        
       }
        //console.log(this.JournalsData);
-        this.items = this.JournalsData.data;
-        this.totalRecords = this.JournalsData.totalsrecords;
-        this.currentMonthRecords = this.JournalsData.monthly;
-        this.currentWeekRecords = this.JournalsData.weekly;
+        this.items = this.JournalsData.data.data;
+        this.totalRecords = this.JournalsData.data.count;
+        this.currentMonthRecords = this.JournalsData.data.monthly;
+        this.currentWeekRecords = this.JournalsData.data.week;
     },
     viewjournal(id) {
       this.$router.push({ name: "viewjournal", params: { id: id } });

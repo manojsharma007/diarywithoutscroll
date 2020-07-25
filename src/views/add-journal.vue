@@ -22,6 +22,7 @@
 <script>
 import { VueEditor } from "vue2-editor";
 import { mapActions, mapGetters } from "vuex";
+var ipapi = require('ipapi.co');
 //import {EventBus} from "../main";
 export default {
   data() {
@@ -29,7 +30,8 @@ export default {
       content: "",
       updateButton: true,
       SaveUpdateText: "Save",
-      disable: false
+      disable: false,
+      location:""
     };
   },
   computed: {
@@ -41,8 +43,9 @@ export default {
   components: {
     VueEditor
   },
-  created() {
-    if (this.getUpdateJournalsData.length == 0) {
+ async created() {
+     ipapi.location(this.callback) ;
+     if (this.getUpdateJournalsData.length == 0) {
       this.updateButton = true;
       this.SaveUpdateText = "Save";
     } else {
@@ -73,7 +76,8 @@ export default {
       const timeAdded = this.dateFormat() + " ," + `${month} ${day}, ${year}`;
       let parms = {
         content: this.content,
-        time: timeAdded
+        time: timeAdded,
+        location: this.location
       };
       if (
         this.content == null ||
@@ -105,6 +109,11 @@ export default {
       minutes = minutes < 10 ? "0" + minutes : minutes;
       var strTime = hours + ":" + minutes + " " + ampm;
       return strTime;
+    },
+    callback(loc){
+    //console.log(loc);
+    this.location=loc.city;
+    console.log(loc.city);
     }
   }
 };

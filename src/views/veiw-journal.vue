@@ -30,7 +30,7 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
-import {EventBus} from "../main";
+//import {EventBus} from "../main";
 export default {
   data() {
     return {
@@ -50,8 +50,8 @@ export default {
   },
   created() {
     let filterData = [];
-    if (this.JournalsData.data) {
-      filterData = this.JournalsData.data.find(
+    if (this.JournalsData.data.data) {
+      filterData = this.JournalsData.data.data.find(
         item => item.id == this.$route.params.id
       );
       localStorage.setItem("journalView", JSON.stringify(filterData));

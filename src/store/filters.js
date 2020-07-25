@@ -1,6 +1,7 @@
 import axios from "axios";
-let apiURL ="http://localhost:3000/api/";
-//let apiURL ="http://nodeapi.manojksharma.in/api/";
+//let apiURL ="http://localhost:3000/api/";
+let apiURL= "http://localhost:8080/phpapi/"
+//let apiURL ="https://diary.manojksharma.in/api/";
 export default {
   namespaced: true,
   state: {   
@@ -21,7 +22,7 @@ export default {
   },
   mutations: {
     setJournalsData(state, payload) {      
-        state.journalsData= payload.data.data;     
+        state.journalsData= payload.data;     
     },
     setUpdateJournalsData(state, payload) {
       state.updateJournalsData = payload;
@@ -33,7 +34,7 @@ export default {
   },
   actions: {
     async getAllJournals({ commit }) {  
-      return await axios.get(apiURL+"allJournal")
+      return await axios.get(apiURL+"read.php")
       .then((response)=>{
        commit("setJournalsData", { data: response, meta: false });
       })
@@ -42,9 +43,10 @@ export default {
       })     
      },
     async addJournals({ commit }, params) {
-      return await axios.post(apiURL + "addJournal",{
+      return await axios.post(apiURL + "create.php",{
         "textitem":params.content,
-        "date": params.time
+        "submitdate": params.time,
+        "location": params.location
       })
       .then((response)=>{
         commit("setJournalsData", { data: response, meta: true });
@@ -56,7 +58,7 @@ export default {
      },
      async updateJournals({ commit }, params) {  
        // + params.content+ "&id="+params.id
-      return await axios.post(apiURL + "updateJournal",{
+      return await axios.post(apiURL + "update.php",{
         "textitem":params.content,
         "id": params.id
       })
@@ -69,7 +71,7 @@ export default {
       })     
      },
      async deleteJournals({ commit }, params) {
-     return await axios.post(apiURL + "deleteJournal",{
+     return await axios.post(apiURL + "delete.php",{
       "id": params.id
     })
      .then((response)=>{

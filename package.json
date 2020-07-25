@@ -17,6 +17,7 @@
     "core-js": "^3.6.4",
     "cxlt-vue2-toastr": "^1.1.1",
     "font-awesome": "^4.7.0",
+    "ipapi.co": "^0.3.0",
     "jquery": "^3.4.1",
     "less-loader": "^6.2.0",
     "tiptap-vuetify": "^2.23.0",
