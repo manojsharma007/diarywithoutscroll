@@ -1,6 +1,6 @@
 import axios from "axios";
 //let apiURL ="http://localhost:3000/api/";
-let apiURL= "http://localhost:8080/phpapi/"
+let apiURL= "http://localhost:8080/phpapi/nodediaryapis/"
 //let apiURL ="https://diary.manojksharma.in/api/";
 export default {
   namespaced: true,
@@ -36,7 +36,7 @@ export default {
     async getAllJournals({ commit }) {  
       return await axios.get(apiURL+"read.php")
       .then((response)=>{
-       commit("setJournalsData", { data: response, meta: false });
+       commit("setJournalsData", { data: response.data, meta: false });
       })
       .catch((error)=>{     
          console.log(error);
@@ -49,7 +49,7 @@ export default {
         "location": params.location
       })
       .then((response)=>{
-        commit("setJournalsData", { data: response, meta: true });
+        commit("setJournalsData", { data: response.data, meta: true });
         
       })
       .catch((error)=>{     
@@ -63,7 +63,7 @@ export default {
         "id": params.id
       })
       .then((response)=>{
-        commit("setJournalsData", { data: response, meta: true });    
+        commit("setJournalsData", { data: response.data, meta: true });    
           
       })
       .catch((error)=>{     
@@ -75,7 +75,7 @@ export default {
       "id": params.id
     })
      .then((response)=>{
-       commit("setJournalsData", { data: response, meta: true });
+       commit("setJournalsData", { data: response.data, meta: true });
      })
      .catch((error)=>{     
         console.log(error);

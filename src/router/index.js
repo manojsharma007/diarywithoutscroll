@@ -15,10 +15,11 @@ const router = new Router({
   base: "",
   routes: [
       {
-        path: '/',
+        path: '*',
         name: 'login',
         component: login
-    },   
+    },  
+   
     {
       path: '/diarylist',
       name: 'diarylist',

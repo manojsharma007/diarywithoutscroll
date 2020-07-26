@@ -98,6 +98,7 @@ export default {
     },
     formatText(text) {
       if (text) {
+       text= text.replace(/<\/?[^>]+(>|$)/g, "");
         return text.substr(0, 110);
       }
     },
@@ -108,10 +109,10 @@ export default {
        
       }
        //console.log(this.JournalsData);
-        this.items = this.JournalsData.data.data;
-        this.totalRecords = this.JournalsData.data.count;
-        this.currentMonthRecords = this.JournalsData.data.monthly;
-        this.currentWeekRecords = this.JournalsData.data.week;
+        this.items = this.JournalsData.data;
+        this.totalRecords = this.JournalsData.count;
+        this.currentMonthRecords = this.JournalsData.monthly;
+        this.currentWeekRecords = this.JournalsData.week;
     },
     viewjournal(id) {
       this.$router.push({ name: "viewjournal", params: { id: id } });

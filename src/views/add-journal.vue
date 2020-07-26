@@ -1,6 +1,6 @@
 <template>
   <div class="addjournal">
-    <vue-editor v-model="content"></vue-editor>
+    <vue-editor v-model="content"  @blur="savecontent"></vue-editor>
     <div class="submitbuttonaddview">
       <b-row class="text-center">
         <b-col>
@@ -22,7 +22,7 @@
 <script>
 import { VueEditor } from "vue2-editor";
 import { mapActions, mapGetters } from "vuex";
-var ipapi = require('ipapi.co');
+//var ipapi = require('ipapi.co');
 //import {EventBus} from "../main";
 export default {
   data() {
@@ -43,12 +43,16 @@ export default {
   components: {
     VueEditor
   },
- async created() {
-     ipapi.location(this.callback) ;
+ async created() {    
      if (this.getUpdateJournalsData.length == 0) {
       this.updateButton = true;
       this.SaveUpdateText = "Save";
+       if (localStorage.getItem("saveContent") != null) {
+      this.content = (localStorage.getItem("saveContent"));
+    }
+     // ipapi.location(this.callback) ;
     } else {
+      this.content="";
       this.content = this.getUpdateJournalsData.textitem;
       this.SaveUpdateText = "Update";
       this.updateButton = false;
@@ -92,11 +96,12 @@ export default {
         } else {
           this.getUpdateJournalsData.content = this.content;
           await this.updateJournals(this.getUpdateJournalsData);
-        }
-        this.$router.push({ name: "diarylist" });
+        }       
+        this.goToDiarylist();
       }
     },
     goToDiarylist() {
+       localStorage.removeItem("saveContent");
       this.$router.push({ name: "diarylist" });
     },
     dateFormat() {
@@ -114,6 +119,9 @@ export default {
     //console.log(loc);
     this.location=loc.city;
     console.log(loc.city);
+    },
+    savecontent(){
+      localStorage.setItem("saveContent",this.content);
     }
   }
 };

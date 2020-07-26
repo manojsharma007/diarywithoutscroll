@@ -50,14 +50,14 @@ export default {
   },
   created() {
     let filterData = [];
-    if (this.JournalsData.data.data) {
-      filterData = this.JournalsData.data.data.find(
+    if (this.JournalsData.data) {
+      filterData = this.JournalsData.data.find(
         item => item.id == this.$route.params.id
       );
       localStorage.setItem("journalView", JSON.stringify(filterData));
     } else {
-      let aa = JSON.parse(localStorage.getItem("journalView"));
-      filterData = aa;
+      let itemJournal = JSON.parse(localStorage.getItem("journalView"));
+      filterData = itemJournal;
     }
     this.listItems = filterData;
   },
