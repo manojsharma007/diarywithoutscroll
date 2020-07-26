@@ -22,7 +22,7 @@
 <script>
 import { VueEditor } from "vue2-editor";
 import { mapActions, mapGetters } from "vuex";
-//var ipapi = require('ipapi.co');
+var ipapi = require('ipapi.co');
 //import {EventBus} from "../main";
 export default {
   data() {
@@ -50,7 +50,7 @@ export default {
        if (localStorage.getItem("saveContent") != null) {
       this.content = (localStorage.getItem("saveContent"));
     }
-     // ipapi.location(this.callback) ;
+      ipapi.location(this.callback) ;
     } else {
       this.content="";
       this.content = this.getUpdateJournalsData.textitem;

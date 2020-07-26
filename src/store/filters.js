@@ -1,4 +1,5 @@
 import axios from "axios";
+let token= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9";
 //let apiURL ="http://localhost:3000/api/";
 let apiURL= "http://localhost:8080/phpapi/nodediaryapis/"
 //let apiURL ="https://diary.manojksharma.in/api/";
@@ -34,7 +35,9 @@ export default {
   },
   actions: {
     async getAllJournals({ commit }) {  
-      return await axios.get(apiURL+"read.php")
+      return await axios.post(apiURL+"read.php",{
+        "token":token
+      })
       .then((response)=>{
        commit("setJournalsData", { data: response.data, meta: false });
       })
@@ -46,7 +49,8 @@ export default {
       return await axios.post(apiURL + "create.php",{
         "textitem":params.content,
         "submitdate": params.time,
-        "location": params.location
+        "location": params.location,
+        "token":token
       })
       .then((response)=>{
         commit("setJournalsData", { data: response.data, meta: true });
@@ -60,7 +64,8 @@ export default {
        // + params.content+ "&id="+params.id
       return await axios.post(apiURL + "update.php",{
         "textitem":params.content,
-        "id": params.id
+        "id": params.id,
+        "token":token
       })
       .then((response)=>{
         commit("setJournalsData", { data: response.data, meta: true });    
@@ -72,7 +77,8 @@ export default {
      },
      async deleteJournals({ commit }, params) {
      return await axios.post(apiURL + "delete.php",{
-      "id": params.id
+      "id": params.id,
+      "token":token
     })
      .then((response)=>{
        commit("setJournalsData", { data: response.data, meta: true });
